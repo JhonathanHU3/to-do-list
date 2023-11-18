@@ -1,0 +1,14 @@
+{
+  "name": "to-do-list",
+  "version": "1.0.0",
+  "description": "Projeto de lista de tarefas para aprendizado de nodejs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "author": "Jhonathan Pimenta",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^4.24.3"
+  }
+}
