@@ -1,13 +1,11 @@
-import { sql } from "./db.js";
+import { sql } from "../database/db.js";
 
-const taskTable = sql`
+sql`
 CREATE TABLE tasks (
-    id PRIMARY KEY NOT NULL,
+    id TEXT PRIMARY KEY NOT NULL,
     task TEXT NOT NULL,
-    check BOOLEAN NOT NULL,
+    checked BOOLEAN NOT NULL DEAFULT FALSE,
     date TIMESTAMP DEFAULT Now()
 );`.then(() => {
   console.log("The table has been created!");
 });
-
-export { taskTable };

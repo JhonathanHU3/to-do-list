@@ -2,7 +2,6 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import {routes} from "./routes/routes.js"
-import sql from "./database/db.js"
 
 const app = express();
 const port = 3000;
@@ -13,6 +12,7 @@ const __dirname = path.dirname(__filename);
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded());
 app.use(routes);
 
 app.listen(

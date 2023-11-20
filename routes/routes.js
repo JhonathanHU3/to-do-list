@@ -1,8 +1,10 @@
 import { Router } from "express";
-import {getAll} from "../controller/TaskController.js" 
+import { getAllTasks, createTask } from "../controller/TaskController.js" 
 
 const routes = Router();
 
-routes.get("/", getAll);
+routes.get("/", getAllTasks);
+routes.post("/create", createTask);
+
 
 export {routes};
