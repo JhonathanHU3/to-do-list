@@ -1,9 +1,27 @@
-const getAll = (req, res) => {
-  return res.render("index");
+import { sql } from "../database/db.js";
+
+const getAllTasks = async (req, res) => {
+  try {
+    const taskList = await sql`SELECT * FROM tasks`;
+    return res.render("index", taskList);
+  } catch(err) {
+    res.status(500).send({ error: err.message });
+  }
 };
 
-function jair() {
-  console.log(2)
-}
+const createTask = async (req, res) => {
+  const task = req.body;
 
-export {getAll, jair}
+  if (!task.task) {
+    return res.redirect("/");
+  }
+
+  try {
+    await sql`INSERT INTO tasks()`;
+    return res.redirect("/");
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+};
+
+export { getAllTasks, createTask };

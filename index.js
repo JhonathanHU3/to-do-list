@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import {routes} from "./routes/routes.js"
+import sql from "./database/db.js"
 
 const app = express();
 const port = 3000;
