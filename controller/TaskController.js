@@ -4,7 +4,7 @@ import { sql } from "../database/db.js";
 const getAllTasks = async (req, res) => {
   try {
     const taskList = await sql`SELECT * FROM tasks`;
-    return res.render("index", {taskList});
+    return res.render("tarefas", { taskList });
   } catch (err) {
     res.status(500).send({ error: err.message });
   }

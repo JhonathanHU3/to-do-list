@@ -7,11 +7,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="/login" method="post">
-        <input type="text" name="email" id="email" placeholder="Insira seu email">
-        <input type="password" name="password" id="password" placeholder="Insira sua senha">
+    <form action="/create" method="post">
+        <input type="text" name="task" id="task" placeholder="Insira alguma tarefa">
         <button id="addButton" type="submit">></button>
     </form>
+
+    <ul>
+        <% taskList.forEach((task) => { %>
+        <li><%= task.task %> | <%= task.date.toLocaleString("pt-BR") %> | <%= task.checked ? "Feito" : "A fazer" %></li>
+        <% }) %>
+    </ul>
 
     <script src="script.js"></script>
 </body>
