@@ -21,12 +21,15 @@ const getRegisterForm = async (req, res) => {
 
 const registerUser = async (req, res) => {
   const userId = randomUUID();
+  const randomImg = `/img/profileImg/${Math.ceil(Math.random() * 10)}.jpg`;
+  const fullName = req.body.fullName;
+  const userEmail = req.body.email;
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
   try {
     await sql`
-    INSERT INTO users(id, email, password)
-    VALUES (${userId}, ${req.body.email}, ${hashedPassword})`;
+    INSERT INTO users(id, email, password, profileimagedir, fullname)
+    VALUES (${userId}, ${userEmail}, ${hashedPassword}, ${randomImg}, ${fullName})`;
     console.log("Usuário cadastrado!");
     return res.redirect("/");
   } catch (err) {
@@ -36,17 +39,18 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  const user = await sql`SELECT * FROM users WHERE email = ${req.body.email}`;
-  if (user.length === 1) {
-    const { password: passwordHash } = user[0];
-    const passwordCheck = await bcrypt.compare(req.body.password, passwordHash);
+  const [ user ] = await sql`SELECT * FROM users WHERE email = ${req.body.email}`;
+  if (user) {
+    const passwordCheck = await bcrypt.compare(req.body.password, user.password);
 
     if (passwordCheck) {
-      const { id } = user[0];
-      const token = tokenGeneration(id);
+      const token = tokenGeneration(user.id);
       res.cookie("token", token, {
         httpOnly: true,
       });
+      res.cookie("userData", JSON.stringify(user), {
+        httpOnly: true,
+      })
       return res.redirect("/home");
     }
 

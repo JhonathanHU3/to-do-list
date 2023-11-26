@@ -4,7 +4,7 @@ import "dotenv/config";
 let { SECRET } = process.env;
 
 function tokenGeneration(userId) {
-  return jwt.sign({ userId: userId }, SECRET, { expiresIn: 300 });
+  return jwt.sign({ userId: userId }, SECRET, { expiresIn: 3000 });
 }
 
 const verifyToken = (req, res, next) => {

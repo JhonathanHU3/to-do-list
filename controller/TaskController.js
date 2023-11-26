@@ -4,7 +4,10 @@ import { sql } from "../database/db.js";
 const getAllTasks = async (req, res) => {
   try {
     const taskList = await sql`SELECT * FROM tasks`;
-    return res.render("tarefas", { taskList });
+    const userData = req.cookies.userData;
+    const user = JSON.parse(userData);
+    console.log(user);
+    return res.render("tarefas", { taskList, user });
   } catch (err) {
     res.status(500).send({ error: err.message });
   }

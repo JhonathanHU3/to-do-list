@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1>To-do list</h1>
+    <img src="<%= user.profileimagedir %>" width="70px" height="70px">
+    <p><%= user.fullname %></p>
     <form action="/create" method="post">
         <input type="text" name="task" id="task" placeholder="Insira alguma tarefa">
         <button id="addButton" type="submit">></button>
@@ -16,7 +19,9 @@
         <% taskList.forEach((task) => { %>
         <li><%= task.task %> | <%= task.date.toLocaleString("pt-BR") %> | <%= task.checked ? "Feito" : "A fazer" %></li>
         <% }) %>
-    </ul>
+    </ul> <br>
+
+    <a href="/account"><p>Editar perfil</p></a>
 
     <script src="script.js"></script>
 </body>
